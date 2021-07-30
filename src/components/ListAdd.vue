@@ -19,7 +19,7 @@
 
 <script>
 export default {
- data:function(){
+  data:function(){
   return {
    title:'',
    isEditing:false,
@@ -38,12 +38,12 @@ export default {
  },
  titleExists(){
   return this.title.length > 0
- },
+ }
  },
  
  methods:{
   addList(){
-   this.$store.dispatch('addlist',this.title);
+   this.$store.dispatch('addlist',{title:this.title});
    this.title=''
   },
   startEditing(){

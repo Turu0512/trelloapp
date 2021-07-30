@@ -1,20 +1,23 @@
 <template>
-<div>
- <header>
-  my Trello
- </header>
- <main>
-  <!-- タスクの総数 -->
-  <p class="info-line"> All:0 task</p>
-  <div class="list-index">
-   <list v-for="(item,index) in lists"
-   :key="item.id"
-   :title="item.title"
-   :listIndex="index"></list>
-  <list-add></list-add>
+  <div>
+  <header>
+    my Trello
+  </header>
+  <main>
+    <!-- タスクの総数 -->
+    <p class="info-line"> All:{{ totalCardCount }} task</p>
+    <!-- タスクリスト -->
+    <div class="list-index">
+    <list v-for="(item,index) in lists" 
+    :key="item.id" 
+    :title="item.title" 
+    :listIndex="index"
+    :cards="item.cards"
+    ></list>
+    <list-add></list-add>
+    </div>
+  </main>
   </div>
- </main>
-</div>
 </template>
 
 <script>
@@ -23,15 +26,18 @@ import List from "./List.vue"
 import { mapState } from "vuex"
 
 export default {
- name:"board",
- components: {
+name:"board",
+components: {
     ListAdd,
-    List
+    List,
   },
- computed: {
+computed: {
   ...mapState([
-   'lists'
+  'lists'
   ]),
- },
+  totalCardCount(){
+    return this.$store.getters.totalCardCount
+  }
+},
 }
 </script>
